@@ -32,9 +32,9 @@ export default function UserLocation() {
     <>
       {weather && (
         <>
-          {weather.weather.map(({ description, icon, main }) => (
+          {weather.weather.map(({ description, icon, main, id }) => (
             <div
-              key={1}
+              key={id}
               style={
                 Math.round(weather.main.temp) < 10
                   ? coldStyle

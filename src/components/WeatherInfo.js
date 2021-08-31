@@ -26,9 +26,9 @@ export default function WeatherInfo({ cityName }) {
     <>
       {weather && (
         <>
-          {weather.weather.map(({ description, icon, main }) => (
+          {weather.weather.map(({ description, icon, main, id }) => (
             <div
-              key={2}
+              key={id}
               style={
                 Math.round(weather.main.temp) < 10
                   ? coldStyle
