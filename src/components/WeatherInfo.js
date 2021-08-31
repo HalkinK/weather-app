@@ -1,56 +1,56 @@
-import React from "react";
+import { useState, useEffect } from "react";
 
-export default class WeatherInfo extends React.Component {
-  state = {
-    weather: null,
-  };
+export default function WeatherInfo({ cityName }) {
+  const [weather, setWeather] = useState(null);
 
-  componentDidUpdate(prevProps, prevState) {
-    const prevName = prevProps.cityName;
-    const nextName = this.props.cityName;
-
-    if (prevName !== nextName) {
-      fetch(
-        `https://api.openweathermap.org/data/2.5/weather?q=${nextName}&appid=af0f9a3d3acf15b4d50d288abcbabfde&units=metric`
-      )
-        .then((responce) => responce.json())
-        .then((weather) => this.setState({ weather }));
+  useEffect(() => {
+    if (!cityName) {
+      return;
     }
-  }
+    fetch(
+      `https://api.openweathermap.org/data/2.5/weather?q=${cityName}&appid=af0f9a3d3acf15b4d50d288abcbabfde&units=metric`
+    )
+      .then((responce) => responce.json())
+      .then((weather) => setWeather(weather))
+      .catch((error) => {
+        alert("Please enter valid city name");
+        document.location.reload();
+      });
+  }, [cityName]);
 
-  render() {
-    const coldStyle = { backgroundColor: "#00ffff" };
-    const middleStyle = { backgroundColor: "#fff700" };
-    const hotStyle = { backgroundColor: "#ff8c00" };
-    return (
-      <>
-        {this.state.weather && (
-          <>
-            {this.state.weather.weather.map(({ description, icon, main }) => (
-              <div
-                style={
-                  Math.round(this.state.weather.main.temp) < 10
-                    ? coldStyle
-                    : Math.round(this.state.weather.main.temp) >= 10 &&
-                      Math.round(this.state.weather.main.temp) <= 29
-                    ? middleStyle
-                    : hotStyle
-                }
-              >
-                <h1>{this.state.weather.name}</h1>
-                <img
-                  src={`http://openweathermap.org/img/wn/${icon}@2x.png`}
-                  alt={description}
-                ></img>
-                <h2>{Math.round(this.state.weather.main.temp)} °C</h2>
-                <p>
-                  {main}: {description}
-                </p>
-              </div>
-            ))}
-          </>
-        )}
-      </>
-    );
-  }
+  const coldStyle = { backgroundColor: "#00ffff" };
+  const middleStyle = { backgroundColor: "#fff700" };
+  const hotStyle = { backgroundColor: "#ff8c00" };
+
+  return (
+    <>
+      {weather && (
+        <>
+          {weather.weather.map(({ description, icon, main }) => (
+            <div
+              key={2}
+              style={
+                Math.round(weather.main.temp) < 10
+                  ? coldStyle
+                  : Math.round(weather.main.temp) >= 10 &&
+                    Math.round(weather.main.temp) <= 29
+                  ? middleStyle
+                  : hotStyle
+              }
+            >
+              <h1>{weather.name}</h1>
+              <img
+                src={`http://openweathermap.org/img/wn/${icon}@2x.png`}
+                alt={description}
+              ></img>
+              <h2>{Math.round(weather.main.temp)} °C</h2>
+              <p>
+                {main}: {description}
+              </p>
+            </div>
+          ))}
+        </>
+      )}
+    </>
+  );
 }

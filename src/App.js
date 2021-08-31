@@ -6,9 +6,6 @@ import WeatherInfo from "./components/WeatherInfo";
 import UserLocation from "./components/UserLocation";
 
 export default function App() {
-  // state = {
-  //   cityName: "",
-  // };
   const [cityName, setCityName] = useState("");
 
   const handleFormSubmit = (cityName) => {
