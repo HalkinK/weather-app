@@ -3,7 +3,6 @@ import React from "react";
 export default class WeatherInfo extends React.Component {
   state = {
     weather: null,
-    temp: 0,
   };
 
   componentDidUpdate(prevProps, prevState) {
@@ -15,7 +14,7 @@ export default class WeatherInfo extends React.Component {
         `https://api.openweathermap.org/data/2.5/weather?q=${nextName}&appid=af0f9a3d3acf15b4d50d288abcbabfde&units=metric`
       )
         .then((responce) => responce.json())
-        .then((weather) => this.setState({ weather, temp: weather.main.temp }));
+        .then((weather) => this.setState({ weather }));
     }
   }
 
