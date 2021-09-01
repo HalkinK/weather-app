@@ -1,4 +1,6 @@
 import { useState, useEffect } from "react";
+import { colorOptions } from "./ColorsBase";
+import styles from "./ColorsOptions.module.css";
 
 export default function WeatherInfo({ cityName }) {
   const [weather, setWeather] = useState(null);
@@ -18,22 +20,20 @@ export default function WeatherInfo({ cityName }) {
       });
   }, [cityName]);
 
-  const coldStyle = { backgroundColor: "#00ffff" };
-  const middleStyle = { backgroundColor: "#fff700" };
-  const hotStyle = { backgroundColor: "#ff8c00" };
-
   return (
     <>
       {weather?.weather?.map(({ description, icon, main, id }) => (
         <div
           key={id}
           style={
-            Math.round(weather.main.temp) < 10
-              ? coldStyle
-              : Math.round(weather.main.temp) >= 10 &&
-                Math.round(weather.main.temp) <= 29
-              ? middleStyle
-              : hotStyle
+            Math.round(weather.main.temp) < -10
+              ? styles.coldStyle
+              : Math.round(weather.main.temp) >= -10 &&
+                Math.round(weather.main.temp) <= 30
+              ? colorOptions.find(
+                  (el) => el.temp === Math.round(weather.main.temp)
+                )
+              : styles.hotStyle
           }
         >
           <h1>{weather.name}</h1>
