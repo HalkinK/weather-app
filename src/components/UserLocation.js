@@ -30,33 +30,29 @@ export default function UserLocation() {
 
   return (
     <>
-      {weather && (
-        <>
-          {weather.weather.map(({ description, icon, main, id }) => (
-            <div
-              key={id}
-              style={
-                Math.round(weather.main.temp) < 10
-                  ? coldStyle
-                  : Math.round(weather.main.temp) >= 10 &&
-                    Math.round(weather.main.temp) <= 29
-                  ? middleStyle
-                  : hotStyle
-              }
-            >
-              <h1>{weather.name}</h1>
-              <img
-                src={`http://openweathermap.org/img/wn/${icon}@2x.png`}
-                alt={description}
-              ></img>
-              <h2>{Math.round(weather.main.temp)} °C</h2>
-              <p>
-                {main}: {description}
-              </p>
-            </div>
-          ))}
-        </>
-      )}
+      {weather?.weather?.map(({ description, icon, main, id }) => (
+        <div
+          key={id}
+          style={
+            Math.round(weather.main.temp) < 10
+              ? coldStyle
+              : Math.round(weather.main.temp) >= 10 &&
+                Math.round(weather.main.temp) <= 29
+              ? middleStyle
+              : hotStyle
+          }
+        >
+          <h1>{weather.name}</h1>
+          <img
+            src={`http://openweathermap.org/img/wn/${icon}@2x.png`}
+            alt={description}
+          ></img>
+          <h2>{Math.round(weather.main.temp)} °C</h2>
+          <p>
+            {main}: {description}
+          </p>
+        </div>
+      ))}
     </>
   );
 }

@@ -15,8 +15,7 @@ export default function App() {
   return (
     <div className="weather-container">
       <SearchBar onSubmit={handleFormSubmit} />
-      {cityName === "" && <UserLocation />}
-
+      {!cityName && <UserLocation />}
       <WeatherInfo cityName={cityName} />
     </div>
   );
